@@ -1,6 +1,11 @@
 body {
-  background-color: pink !important;
+  background-color: #FAF3E0 !important;
   font-family: "Arial", sans-serif;
+}
+
+.welcome-MudContainer {
+  margin: 2rem 0rem;
+  color: #9B1C31;
 }
 
 /*# sourceMappingURL=app.css.map */
