@@ -1,12 +1,15 @@
 ﻿
 $primary-color: #FAF3E0;
 $secondary-color: #9B1C31 ;
+$teriary-color: #9B1C31 ;
 
+.teriary-color {
+    background-color: $teriary-color !important;
+}
 
 body {
     background-color: $primary-color !important;
     font-family: 'Arial', sans-serif;
-
 }
 .welcome-MudContainer {
     margin: 2rem 0rem;
