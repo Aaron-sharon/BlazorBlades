@@ -1,17 +1,39 @@
 ﻿
 $primary-color: #FAF3E0;
-$secondary-color: #9B1C31 ;
-$teriary-color: #9B1C31 ;
+$secondary-color: #9B1C31;
 
 .teriary-color {
-    background-color: $teriary-color !important;
+    background-color: $secondary-color !important;
 }
 
 body {
     background-color: $primary-color !important;
     font-family: 'Arial', sans-serif;
 }
+
 .welcome-MudContainer {
     margin: 2rem 0rem;
     color: $secondary-color;
+
+    .Welcoming-MudGrid-Boxes {
+        .mud-grid-item {
+            margin: 2rem 3rem;
+
+            .mud-paper {
+                width: 90%;
+                height: 10rem;
+                background-color: $secondary-color;
+                color: $primary-color;
+
+                &:hover {
+                    background-color: $primary-color;
+                    color: $secondary-color;
+                    border: 1px solid $secondary-color;
+                }
+            }
+            //.mud-typography {
+            //    color: black;
+            //}
+        }
+    }
 }

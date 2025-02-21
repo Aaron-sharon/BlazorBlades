@@ -11,5 +11,19 @@ body {
   margin: 2rem 0rem;
   color: #9B1C31;
 }
+.welcome-MudContainer .Welcoming-MudGrid-Boxes .mud-grid-item {
+  margin: 2rem 3rem;
+}
+.welcome-MudContainer .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper {
+  width: 90%;
+  height: 10rem;
+  background-color: #9B1C31;
+  color: #FAF3E0;
+}
+.welcome-MudContainer .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper:hover {
+  background-color: #FAF3E0;
+  color: #9B1C31;
+  border: 1px solid #9B1C31;
+}
 
 /*# sourceMappingURL=app.css.map */
