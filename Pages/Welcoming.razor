@@ -1,34 +1,54 @@
-﻿<MudContainer Class="welcome-MudContainer">
-	<MudText Typo="Typo.h4" Align="Align.Start">Welcome Back</MudText>
-	<hr />
-	@* <MudText Typo="Typo.h4" Align="Align.Center">Vehicles Details</MudText> *@
+﻿@inject NavigationManager Navigation
+@inject HttpClient Http
 
+<MudContainer Class="welcome-MudContainer">
+    <MudText Typo="Typo.h4" Align="Align.Start">Welcome Back</MudText>
+    <hr />
 
-	<MudGrid Class="Welcoming-MudGrid-Boxes">
-		<MudItem xs="5">
-			<MudPaper Class="d-flex align-center justify-center  cursor-pointer  ">
-				<MudText> Get Vehicles </MudText>
-			</MudPaper>
-		</MudItem>
-		<MudItem xs="5">
-			<MudPaper Class="d-flex align-center justify-center mud-width-half py-12 cursor-pointer  ">
-				<MudText > Get Vehicles </MudText>
-			</MudPaper>
-		</MudItem>
-		<MudItem xs="5">
-			<MudPaper Class="d-flex align-center justify-center mud-width-half py-12 cursor-pointer  ">
-				<MudText > Get Vehicles </MudText>
-			</MudPaper>
-		</MudItem>
-		<MudItem xs="5">
-			<MudPaper Class="d-flex align-center justify-center mud-width-half py-12 cursor-pointer  ">
-				<MudText > Get Vehicles </MudText>
-			</MudPaper>
-		</MudItem>
-	</MudGrid>
+    <MudText Typo="Typo.h4" Align="Align.Center">Vehicles Details</MudText>
+
+    <MudTable T="Dictionary<string, object>" ServerData="LoadVehicles" Hover="true">
+        <HeaderContent>
+            <MudTh>License Plate</MudTh>
+            <MudTh>Model</MudTh>
+            <MudTh>Owner</MudTh>
+            <MudTh>Owner Address</MudTh>
+            <MudTh>Owner Contact Number</MudTh>
+            <MudTh>Owner Email</MudTh>
+            <MudTh>Vehicle Name</MudTh>
+            <MudTh>Price</MudTh>
+        </HeaderContent>
+        <RowTemplate Context="vehicle">
+            <MudTd DataLabel="License Plate">@vehicle["licensePlate"]</MudTd>
+            <MudTd DataLabel="Model">@vehicle["model"]</MudTd>
+            <MudTd DataLabel="Owner">@vehicle["owner"]</MudTd>
+            <MudTd DataLabel="Owner Address">@vehicle["ownerAddress"]</MudTd>
+            <MudTd DataLabel="Owner Contact Number">@vehicle["ownerContactNumber"]</MudTd>
+            <MudTd DataLabel="Owner Email">@vehicle["ownerEmail"]</MudTd>
+            <MudTd DataLabel="Vehicle Name">@vehicle["vehicleName"]</MudTd>
+            <MudTd DataLabel="Price">@vehicle["price"]</MudTd>
+        </RowTemplate>
+    </MudTable>
 </MudContainer>
 
-
 @code {
+    // private bool isEmptyData = true; 
 
+    private async Task<TableData<Dictionary<string, object>>> LoadVehicles(TableState state, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var vehicles = await Http.GetFromJsonAsync<List<Dictionary<string, object>>>("https://localhost:7043/api/Logic", cancellationToken);
+            if (vehicles == null || !vehicles.Any())
+            {
+                return new TableData<Dictionary<string, object>> { Items = new List<Dictionary<string, object>>(), TotalItems = 0 };
+            }
+            return new TableData<Dictionary<string, object>> { Items = vehicles, TotalItems = vehicles.Count };
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching vehicles: {ex.Message}");
+            return new TableData<Dictionary<string, object>> { Items = new List<Dictionary<string, object>>(), TotalItems = 0 };
+        }
+    }
 }
