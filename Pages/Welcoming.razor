@@ -84,4 +84,41 @@
             }
         }
     }
+
+
+    private bool TryExtractId(object idObj, out int id)
+    {
+        id = 0;
+        try
+        {
+            if (idObj is JsonElement jsonElement)
+            {
+                if (jsonElement.ValueKind == JsonValueKind.Number)
+                {
+                    id = jsonElement.GetInt32();
+                    return true;
+                }
+                else if (jsonElement.ValueKind == JsonValueKind.String && int.TryParse(jsonElement.GetString(), out int parsedId))
+                {
+                    id = parsedId;
+                    return true;
+                }
+            }
+            else if (idObj is int intId)
+            {
+                id = intId;
+                return true;
+            }
+            else if (idObj is string strId && int.TryParse(strId, out int parsedId))
+            {
+                id = parsedId;
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error extracting ID: {ex.Message}");
+        }
+        return false;
+    }
 }
