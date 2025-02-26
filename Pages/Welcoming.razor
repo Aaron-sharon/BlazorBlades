@@ -7,7 +7,7 @@
     <MudText Typo="Typo.h4" Align="Align.Start">Welcome Back</MudText>
     <hr />
     <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-3">Vehicles Details</MudText>
-    <MudButton OnClick="OpenAddVehicleDialog" Color="Color.Primary">Add Vehicle</MudButton>
+    <MudButton OnClick="OpenAddVehicleDialog" Class="btn-add-vehicle">Add Vehicle</MudButton>
 
     <MudTable T="Dictionary<string, object>" ServerData="LoadVehicles" Hover="true" @ref="tableRef">
         <HeaderContent>

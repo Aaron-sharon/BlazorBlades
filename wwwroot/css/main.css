@@ -2,6 +2,12 @@
   background-color: #9B1C31 !important;
 }
 
+.btn-primary {
+  color: #9B1C31;
+  background-color: #9B1C31;
+  border: 1px solid #9B1C31;
+}
+
 body {
   background-color: #FAF3E0 !important;
   font-family: "Arial", sans-serif;
@@ -9,12 +15,30 @@ body {
 
 .welcome-MudContainer {
   margin: 2rem 0rem;
-  color: red;
-  background-color: red;
+  color: #9B1C31;
 }
-
-.Welcoming-MudGrid-Boxes {
-  color: yellow;
+.welcome-MudContainer .btn-add-vehicle {
+  color: #FAF3E0;
+  background-color: #9B1C31;
+}
+.welcome-MudContainer .btn-add-vehicle:hover {
+  color: #9B1C31;
+  background-color: #FAF3E0;
+  border: 2px dashed #9B1C31;
+}
+.welcome-MudContainer .btn-add-vehicle .Welcoming-MudGrid-Boxes .mud-grid-item {
+  margin: 2rem 3rem;
+}
+.welcome-MudContainer .btn-add-vehicle .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper {
+  width: 90%;
+  height: 10rem;
+  background-color: #9B1C31;
+  color: #FAF3E0;
+}
+.welcome-MudContainer .btn-add-vehicle .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper:hover {
+  background-color: #FAF3E0;
+  color: #9B1C31;
+  border: 1px solid #9B1C31;
 }
 
 /*# sourceMappingURL=main.css.map */
