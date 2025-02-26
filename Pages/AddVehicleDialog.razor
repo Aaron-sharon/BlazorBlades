@@ -4,26 +4,31 @@
 @using Aaronbackend
 
 <MudContainer>
-    <MudCard>
-        <MudCardHeader>
-            <MudText Typo="Typo.h5">Add Vehicle</MudText>
-        </MudCardHeader>
-        <MudCardContent>
-            <MudTextField Label="License Plate" @bind-Value="vehicle.LicensePlate" Required="true" Placeholder="Ex: KA19MF8008" />
-            <MudTextField Label="Model" @bind-Value="vehicle.Model" Required="true" Placeholder="Ex: 2024" />
-            <MudTextField Label="Owner" @bind-Value="vehicle.Owner" Required="true" Placeholder="Ex: Aaron Sharon Dsouza" />
-            <MudTextField Label="Owner Address" @bind-Value="vehicle.OwnerAddress" Required="true" Placeholder="Ex: Ajanta, Mangalore" />
-            <MudTextField Label="Owner Contact Number" @bind-Value="vehicle.OwnerContactNumber" Required="true" Placeholder="Ex: 900090009" />
-            <MudTextField Label="Owner Email" @bind-Value="vehicle.OwnerEmail" Required="true" Placeholder="eg@eg.dk" Type="Email" />
-            <MudTextField Label="Vehicle Name" @bind-Value="vehicle.VehicleName" Required="true" Placeholder="Ex: Bullet" />
-            <MudTextField Label="Price" @bind-Value="vehicle.Price" Required="true" Placeholder="60000" Type="Number" />
-        </MudCardContent>
-        <MudCardActions>
-            <MudButton OnClick="SubmitVehicle" Color="Color.Primary" Disabled="@isSubmitting">Save Vehicle</MudButton>
-            <MudButton OnClick="Cancel" Color="Color.Secondary">Cancel</MudButton>
-        </MudCardActions>
-    </MudCard>
+    <MudGrid>
+        <MudItem xs="12" lg="12">
+            <MudCard>
+                <MudCardHeader>
+                    <MudText Typo="Typo.h5">Add Vehicle</MudText>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudTextField Label="License Plate" @bind-Value="vehicle.LicensePlate" Required="true" Placeholder="Ex: KA19MF8008" />
+                    <MudTextField Label="Model" @bind-Value="vehicle.Model" Required="true" Placeholder="Ex: 2024" />
+                    <MudTextField Label="Owner" @bind-Value="vehicle.Owner" Required="true" Placeholder="Ex: Aaron Sharon Dsouza" />
+                    <MudTextField Label="Owner Address" @bind-Value="vehicle.OwnerAddress" Required="true" Placeholder="Ex: Ajanta, Mangalore" />
+                    <MudTextField Label="Owner Contact Number" @bind-Value="vehicle.OwnerContactNumber" Required="true" Placeholder="Ex: 900090009" />
+                    <MudTextField Label="Owner Email" @bind-Value="vehicle.OwnerEmail" Required="true" Placeholder="eg@eg.dk" Type="Email" />
+                    <MudTextField Label="Vehicle Name" @bind-Value="vehicle.VehicleName" Required="true" Placeholder="Ex: Bullet" />
+                    <MudTextField Label="Price" @bind-Value="vehicle.Price" Required="true" Placeholder="60000" Type="Number" />
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton OnClick="SubmitVehicle" Color="Color.Primary" Disabled="@isSubmitting">Save Vehicle</MudButton>
+                    <MudButton OnClick="Cancel" Color="Color.Secondary">Cancel</MudButton>
+                </MudCardActions>
+            </MudCard>
+        </MudItem>
+    </MudGrid>
 </MudContainer>
+
 
 @code {
     private Vehicle vehicle = new(); // Using the existing Vehicle model from ABackend
@@ -35,7 +40,7 @@
 
         try
         {
-            var response = await Http.PostAsJsonAsync("https://localhost:7043/api/Logic", vehicle);
+            var response = await Http.PostAsJsonAsync("https://localhost:7043/Logic/add", vehicle);
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("Vehicle added successfully.");
