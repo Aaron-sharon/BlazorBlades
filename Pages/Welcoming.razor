@@ -2,7 +2,6 @@
 @inject HttpClient Http
 @inject IDialogService DialogService
 @using System.Text.Json;
-@inject IDialogService DialogService
 
 <MudContainer Class="welcome-MudContainer">
     <MudText Typo="Typo.h4" Align="Align.Start">Welcome Back</MudText>
@@ -10,7 +9,7 @@
     <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-3">Vehicles Details</MudText>
     <MudButton OnClick="OpenAddVehicleDialog" Color="Color.Primary">Add Vehicle</MudButton>
 
-    <MudTable T="Dictionary<string, object>" ServerData="LoadVehicles" Hover="true">
+    <MudTable T="Dictionary<string, object>" ServerData="LoadVehicles" Hover="true" @ref="tableRef">
         <HeaderContent>
             <MudTh>License Plate</MudTh>
             <MudTh>Model</MudTh>
@@ -20,6 +19,7 @@
             <MudTh>Owner Email</MudTh>
             <MudTh>Vehicle Name</MudTh>
             <MudTh>Price</MudTh>
+            <MudTh>Actions</MudTh>
         </HeaderContent>
         <RowTemplate Context="vehicle">
             <MudTd DataLabel="License Plate">@vehicle["licensePlate"]</MudTd>
@@ -40,10 +40,18 @@
 </MudContainer>
 
 @code {
+    private MudTable<Dictionary<string, object>> tableRef;
+
     private void OpenAddVehicleDialog()
     {
-        DialogService.Show<AddVehicleDialog>("Add/Edit Vehicle");
+        var parameters = new DialogParameters
+        {
+            { "OnVehicleAdded", EventCallback.Factory.Create(this, RefreshTable) }
+        };
+
+        DialogService.Show<AddVehicleDialog>("Add/Edit Vehicle", parameters);
     }
+
     private async Task<TableData<Dictionary<string, object>>> LoadVehicles(TableState state, CancellationToken cancellationToken)
     {
         try
@@ -66,8 +74,6 @@
             return;
         }
 
-        Console.WriteLine($"Extracted ID: {id}");
-
         bool? confirmed = await DialogService.ShowMessageBox(
             "Confirm Delete",
             $"Are you sure you want to delete the vehicle with ID: {id}?",
@@ -78,20 +84,25 @@
         {
             var response = await Http.DeleteAsync($"https://localhost:7043/Logic/delete/{id}");
 
-
-            if (!response.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Delete failed. Status: {response.StatusCode}");
+                Console.WriteLine("Vehicle deleted successfully.");
+                await RefreshTable();
             }
             else
             {
-                await LoadVehicles(new TableState(), CancellationToken.None);
-                Console.WriteLine("Vehicle deleted successfully.");
-                StateHasChanged();
+                Console.WriteLine($"Delete failed. Status: {response.StatusCode}");
             }
         }
     }
 
+    private async Task RefreshTable()
+    {
+        if (tableRef != null)
+        {
+            await tableRef.ReloadServerData();
+        }
+    }
 
     private bool TryExtractId(object idObj, out int id)
     {
@@ -127,11 +138,5 @@
             Console.WriteLine($"Error extracting ID: {ex.Message}");
         }
         return false;
-    }
-
-    private void NavigateToViewDetails()
-    {
-        // ForceLoad forces a full page reload and bypasses client-side routing.
-        Navigation.NavigateTo("/viewdetails", forceLoad: true);
     }
 }

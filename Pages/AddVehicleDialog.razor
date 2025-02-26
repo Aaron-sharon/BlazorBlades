@@ -1,7 +1,44 @@
-﻿@page "/addvehicle"
-@inject HttpClient Http
+﻿@inject HttpClient Http
 @inject NavigationManager Navigation
 @using Aaronbackend
+@code {
+    [Parameter] public EventCallback OnVehicleAdded { get; set; } // Notify parent
+
+    private Vehicle vehicle = new();
+    private bool isSubmitting = false;
+
+    private async Task SubmitVehicle()
+    {
+        isSubmitting = true;
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("https://localhost:7043/Logic/add", vehicle);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Vehicle added successfully.");
+                vehicle = new Vehicle(); // Reset form
+                await OnVehicleAdded.InvokeAsync(); // 🔥 Notify Parent (Welcoming.razor) to refresh table
+            }
+            else
+            {
+                string errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Error adding vehicle: {errorMessage}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Exception: {ex.Message}");
+        }
+
+        isSubmitting = false;
+    }
+
+    private void Cancel()
+    {
+        Navigation.NavigateTo("/");
+    }
+}
 
 <MudContainer>
     <MudGrid>
@@ -28,40 +65,3 @@
         </MudItem>
     </MudGrid>
 </MudContainer>
-
-
-@code {
-    private Vehicle vehicle = new(); // Using the existing Vehicle model from ABackend
-    private bool isSubmitting = false;
-
-    private async Task SubmitVehicle()
-    {
-        isSubmitting = true;
-
-        try
-        {
-            var response = await Http.PostAsJsonAsync("https://localhost:7043/Logic/add", vehicle);
-            if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("Vehicle added successfully.");
-                Navigation.NavigateTo("/"); // Redirect to home after submission
-            }
-            else
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error adding vehicle: {errorMessage}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Exception: {ex.Message}");
-        }
-
-        isSubmitting = false;
-    }
-
-    private void Cancel()
-    {
-        Navigation.NavigateTo("/"); // Navigate back to home if user cancels
-    }
-}
