@@ -2,11 +2,13 @@
 @inject HttpClient Http
 @inject IDialogService DialogService
 @using System.Text.Json;
+@inject IDialogService DialogService
 
 <MudContainer Class="welcome-MudContainer">
     <MudText Typo="Typo.h4" Align="Align.Start">Welcome Back</MudText>
     <hr />
     <MudText Typo="Typo.h4" Align="Align.Center" Class="mb-3">Vehicles Details</MudText>
+    <MudButton OnClick="OpenAddVehicleDialog" Color="Color.Primary">Add Vehicle</MudButton>
 
     <MudTable T="Dictionary<string, object>" ServerData="LoadVehicles" Hover="true">
         <HeaderContent>
@@ -38,11 +40,15 @@
 </MudContainer>
 
 @code {
+    private void OpenAddVehicleDialog()
+    {
+        DialogService.Show<AddVehicleDialog>("Add/Edit Vehicle");
+    }
     private async Task<TableData<Dictionary<string, object>>> LoadVehicles(TableState state, CancellationToken cancellationToken)
     {
         try
         {
-            var vehicles = await Http.GetFromJsonAsync<List<Dictionary<string, object>>>("https://localhost:7043/api/Logic", cancellationToken);
+            var vehicles = await Http.GetFromJsonAsync<List<Dictionary<string, object>>>("https://localhost:7043/Logic/all", cancellationToken);
             return new TableData<Dictionary<string, object>> { Items = vehicles ?? new List<Dictionary<string, object>>(), TotalItems = vehicles?.Count ?? 0 };
         }
         catch (Exception ex)
@@ -70,7 +76,7 @@
 
         if (confirmed == true)
         {
-            var response = await Http.DeleteAsync($"https://localhost:7043/{id}");
+            var response = await Http.DeleteAsync($"https://localhost:7043/Logic/delete/{id}");
 
 
             if (!response.IsSuccessStatusCode)
@@ -81,6 +87,7 @@
             {
                 await LoadVehicles(new TableState(), CancellationToken.None);
                 Console.WriteLine("Vehicle deleted successfully.");
+                StateHasChanged();
             }
         }
     }
@@ -120,5 +127,11 @@
             Console.WriteLine($"Error extracting ID: {ex.Message}");
         }
         return false;
+    }
+
+    private void NavigateToViewDetails()
+    {
+        // ForceLoad forces a full page reload and bypasses client-side routing.
+        Navigation.NavigateTo("/viewdetails", forceLoad: true);
     }
 }

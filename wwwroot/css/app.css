@@ -11,16 +11,25 @@ body {
   margin: 2rem 0rem;
   color: #9B1C31;
 }
-.welcome-MudContainer .Welcoming-MudGrid-Boxes .mud-grid-item {
+.welcome-MudContainer .btn-add-vehicle {
+  color: #FAF3E0;
+  background-color: #9B1C31;
+}
+.welcome-MudContainer .btn-add-vehicle:hover {
+  color: #9B1C31;
+  background-color: #FAF3E0;
+  border: 2px dashed #9B1C31;
+}
+.welcome-MudContainer .btn-add-vehicle .Welcoming-MudGrid-Boxes .mud-grid-item {
   margin: 2rem 3rem;
 }
-.welcome-MudContainer .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper {
+.welcome-MudContainer .btn-add-vehicle .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper {
   width: 90%;
   height: 10rem;
   background-color: #9B1C31;
   color: #FAF3E0;
 }
-.welcome-MudContainer .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper:hover {
+.welcome-MudContainer .btn-add-vehicle .Welcoming-MudGrid-Boxes .mud-grid-item .mud-paper:hover {
   background-color: #FAF3E0;
   color: #9B1C31;
   border: 1px solid #9B1C31;
