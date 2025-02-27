@@ -48,18 +48,18 @@
 					<MudText Typo="Typo.h5">Add Vehicle</MudText>
 				</MudCardHeader>
 				<MudCardContent>
-					<MudTextField @bind-Value="vehicle.LicensePlate" Label="License Plate" HelperText="Enter License Plate Number" Variant="Variant.Outlined" Placeholder="KA19MF8008" Required="true" />
-					<MudTextField @bind-Value="vehicle.Model" Label="Modal" HelperText="Enter Model" Variant="Variant.Outlined" Placeholder="Ex - 2020" Required="true" />
-					<MudTextField @bind-Value="vehicle.Owner" Label="Name" HelperText="Enter Name" Variant="Variant.Outlined" Placeholder="Ex - Sharu Bhai" Required="true" />
-					<MudTextField @bind-Value="vehicle.OwnerAddress" Label="Address" HelperText="Enter Owners Address" Variant="Variant.Outlined" Placeholder="Ex - Bali, Thailand" Required="true" />
-					<MudTextField @bind-Value="vehicle.OwnerContactNumber" Label="Contact Number" HelperText="Enter Phone Number" Variant="Variant.Outlined" Placeholder="Ex - 6900000069" Required="true" />
-					<MudTextField @bind-Value="vehicle.OwnerEmail" Label="Email" HelperText="Enter Email Address" Variant="Variant.Outlined" Placeholder="Ex - you@you.com" Required="true" />
-					<MudTextField @bind-Value="vehicle.VehicleName" Label="Vehicle Name" HelperText="Enter vehicle Name" Variant="Variant.Outlined" Placeholder="Ex - Royal Enfield Bullet" Required="true" />
-					<MudTextField @bind-Value="vehicle.Price" Label="Vehicle Price" HelperText="Enter Vehicle Price" Variant="Variant.Outlined" Placeholder="69,000" Required="true" />
+					<MudTextField @bind-Value="vehicle.LicensePlate" Label="License Plate" HelperText="Enter License Plate Number" Variant="Variant.Outlined" HelperTextOnFocus="true" Placeholder="KA19MF8008" Required="true" />
+					<MudTextField @bind-Value="vehicle.Model" Label="Modal" HelperText="Enter Model" Variant="Variant.Outlined" Placeholder="Ex - 2020" HelperTextOnFocus="true" Required="true" />
+					<MudTextField @bind-Value="vehicle.Owner" Label="Name" HelperText="Enter Name" Variant="Variant.Outlined" Placeholder="Ex - Sharu Bhai" HelperTextOnFocus="true" Required="true" />
+					<MudTextField @bind-Value="vehicle.OwnerAddress" Label="Address" HelperText="Enter Owners Address" Variant="Variant.Outlined" HelperTextOnFocus="true" Placeholder="Ex - Bali, Thailand" Required="true" />
+					<MudTextField @bind-Value="vehicle.OwnerContactNumber" Label="Contact Number" HelperText="Enter Phone Number" Variant="Variant.Outlined" HelperTextOnFocus="true" Placeholder="Ex - 6900000069" Required="true" />
+					<MudTextField @bind-Value="vehicle.OwnerEmail" Label="Email" HelperText="Enter Email Address" Variant="Variant.Outlined" HelperTextOnFocus="true" Placeholder="Ex - you@you.com" Required="true" />
+					<MudTextField @bind-Value="vehicle.VehicleName" Label="Vehicle Name" HelperText="Enter vehicle Name" Variant="Variant.Outlined" HelperTextOnFocus="true" Placeholder="Ex - Royal Enfield Bullet" Required="true" />
+					<MudTextField @bind-Value="vehicle.Price" Label="Vehicle Price" HelperText="Enter Vehicle Price" Variant="Variant.Outlined" HelperTextOnFocus="true" Placeholder="69,000" Required="true" />
 				</MudCardContent>
 				<MudCardActions>
-					<MudButton OnClick="SubmitVehicle" Color="Color.Primary" Disabled="@isSubmitting">Save Vehicle</MudButton>
-					<MudButton OnClick="Cancel" Color="Color.Secondary">Cancel</MudButton>
+					<MudButton OnClick="SubmitVehicle" Class="btn-Add-vehicle-container-box-submit-button" Disabled="@isSubmitting">Save Vehicle</MudButton>
+					<MudButton OnClick="Cancel" Class="btn-Add-vehicle-container-box-close-button" >Cancel</MudButton>
 				</MudCardActions>
 			</MudCard>
 		</MudItem>
