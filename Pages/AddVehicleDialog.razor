@@ -49,14 +49,13 @@
 				</MudCardHeader>
 				<MudCardContent>
 					<MudTextField @bind-Value="vehicle.LicensePlate" Label="License Plate" HelperText="Enter License Plate Number" Variant="Variant.Outlined" Placeholder="KA19MF8008" Required="true" />
-					@* <MudTextField Label="License Plate" @bind-Value="vehicle.LicensePlate" Required="true" Placeholder="Ex: KA19MF8008" /> *@
-					<MudTextField Label="Model" @bind-Value="vehicle.Model" Required="true" Placeholder="Ex: 2024" />
-					<MudTextField Label="Owner" @bind-Value="vehicle.Owner" Required="true" Placeholder="Ex: Aaron Sharon Dsouza" />
-					<MudTextField Label="Owner Address" @bind-Value="vehicle.OwnerAddress" Required="true" Placeholder="Ex: Ajanta, Mangalore" />
-					<MudTextField Label="Owner Contact Number" @bind-Value="vehicle.OwnerContactNumber" Required="true" Placeholder="Ex: 900090009" />
-					<MudTextField Label="Owner Email" @bind-Value="vehicle.OwnerEmail" Required="true" Placeholder="eg@eg.dk" Type="Email" />
-					<MudTextField Label="Vehicle Name" @bind-Value="vehicle.VehicleName" Required="true" Placeholder="Ex: Bullet" />
-					<MudTextField Label="Price" @bind-Value="vehicle.Price" Required="true" Placeholder="60000" Type="Number" />
+					<MudTextField @bind-Value="vehicle.Model" Label="Modal" HelperText="Enter Model" Variant="Variant.Outlined" Placeholder="Ex - 2020" Required="true" />
+					<MudTextField @bind-Value="vehicle.Owner" Label="Name" HelperText="Enter Name" Variant="Variant.Outlined" Placeholder="Ex - Sharu Bhai" Required="true" />
+					<MudTextField @bind-Value="vehicle.OwnerAddress" Label="Address" HelperText="Enter Owners Address" Variant="Variant.Outlined" Placeholder="Ex - Bali, Thailand" Required="true" />
+					<MudTextField @bind-Value="vehicle.OwnerContactNumber" Label="Contact Number" HelperText="Enter Phone Number" Variant="Variant.Outlined" Placeholder="Ex - 6900000069" Required="true" />
+					<MudTextField @bind-Value="vehicle.OwnerEmail" Label="Email" HelperText="Enter Email Address" Variant="Variant.Outlined" Placeholder="Ex - you@you.com" Required="true" />
+					<MudTextField @bind-Value="vehicle.VehicleName" Label="Vehicle Name" HelperText="Enter vehicle Name" Variant="Variant.Outlined" Placeholder="Ex - Royal Enfield Bullet" Required="true" />
+					<MudTextField @bind-Value="vehicle.Price" Label="Vehicle Price" HelperText="Enter Vehicle Price" Variant="Variant.Outlined" Placeholder="69,000" Required="true" />
 				</MudCardContent>
 				<MudCardActions>
 					<MudButton OnClick="SubmitVehicle" Color="Color.Primary" Disabled="@isSubmitting">Save Vehicle</MudButton>
@@ -66,10 +65,3 @@
 		</MudItem>
 	</MudGrid>
 </MudContainer>
-
-
-
-
- @*    @code { *@
-	@* public string HelperText { get; set; } *@
- @*    } *@
