@@ -2,66 +2,74 @@
 @inject NavigationManager Navigation
 @using Aaronbackend
 @code {
-    [Parameter] public EventCallback OnVehicleAdded { get; set; } // Notify parent
+	[Parameter] public EventCallback OnVehicleAdded { get; set; } // Notify parent
 
-    private Vehicle vehicle = new();
-    private bool isSubmitting = false;
+	private Vehicle vehicle = new();
+	private bool isSubmitting = false;
 
-    private async Task SubmitVehicle()
-    {
-        isSubmitting = true;
+	private async Task SubmitVehicle()
+	{
+		isSubmitting = true;
 
-        try
-        {
-            var response = await Http.PostAsJsonAsync("https://localhost:7043/Logic/add", vehicle);
-            if (response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("Vehicle added successfully.");
-                vehicle = new Vehicle(); // Reset form
-                await OnVehicleAdded.InvokeAsync(); // 🔥 Notify Parent (Welcoming.razor) to refresh table
-            }
-            else
-            {
-                string errorMessage = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error adding vehicle: {errorMessage}");
-            }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Exception: {ex.Message}");
-        }
+		try
+		{
+			var response = await Http.PostAsJsonAsync("https://localhost:7043/Logic/add", vehicle);
+			if (response.IsSuccessStatusCode)
+			{
+				Console.WriteLine("Vehicle added successfully.");
+				vehicle = new Vehicle(); // Reset form
+				await OnVehicleAdded.InvokeAsync(); // 🔥 Notify Parent (Welcoming.razor) to refresh table
+			}
+			else
+			{
+				string errorMessage = await response.Content.ReadAsStringAsync();
+				Console.WriteLine($"Error adding vehicle: {errorMessage}");
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Exception: {ex.Message}");
+		}
 
-        isSubmitting = false;
-    }
+		isSubmitting = false;
+	}
 
-    private void Cancel()
-    {
-        Navigation.NavigateTo("/");
-    }
+	private void Cancel()
+	{
+		Navigation.NavigateTo("/");
+	}
 }
 
 <MudContainer Class="Add-vehicle-Container-box">
-    <MudGrid >
-        <MudItem >
-            <MudCard>
-                <MudCardHeader>
-                    <MudText Typo="Typo.h5">Add Vehicle</MudText>
-                </MudCardHeader>
-                <MudCardContent>
-                    <MudTextField Label="License Plate" @bind-Value="vehicle.LicensePlate" Required="true" Placeholder="Ex: KA19MF8008" />
-                    <MudTextField Label="Model" @bind-Value="vehicle.Model" Required="true" Placeholder="Ex: 2024" />
-                    <MudTextField Label="Owner" @bind-Value="vehicle.Owner" Required="true" Placeholder="Ex: Aaron Sharon Dsouza" />
-                    <MudTextField Label="Owner Address" @bind-Value="vehicle.OwnerAddress" Required="true" Placeholder="Ex: Ajanta, Mangalore" />
-                    <MudTextField Label="Owner Contact Number" @bind-Value="vehicle.OwnerContactNumber" Required="true" Placeholder="Ex: 900090009" />
-                    <MudTextField Label="Owner Email" @bind-Value="vehicle.OwnerEmail" Required="true" Placeholder="eg@eg.dk" Type="Email" />
-                    <MudTextField Label="Vehicle Name" @bind-Value="vehicle.VehicleName" Required="true" Placeholder="Ex: Bullet" />
-                    <MudTextField Label="Price" @bind-Value="vehicle.Price" Required="true" Placeholder="60000" Type="Number" />
-                </MudCardContent>
-                <MudCardActions>
-                    <MudButton OnClick="SubmitVehicle" Color="Color.Primary" Disabled="@isSubmitting">Save Vehicle</MudButton>
-                    <MudButton OnClick="Cancel" Color="Color.Secondary">Cancel</MudButton>
-                </MudCardActions>
-            </MudCard>
-        </MudItem>
-    </MudGrid>
+	<MudGrid>
+		<MudItem>
+			<MudCard>
+				<MudCardHeader>
+					<MudText Typo="Typo.h5">Add Vehicle</MudText>
+				</MudCardHeader>
+				<MudCardContent>
+					<MudTextField @bind-Value="vehicle.LicensePlate" Label="License Plate" HelperText="Enter License Plate Number" Variant="Variant.Outlined" Placeholder="KA19MF8008" Required="true" />
+					@* <MudTextField Label="License Plate" @bind-Value="vehicle.LicensePlate" Required="true" Placeholder="Ex: KA19MF8008" /> *@
+					<MudTextField Label="Model" @bind-Value="vehicle.Model" Required="true" Placeholder="Ex: 2024" />
+					<MudTextField Label="Owner" @bind-Value="vehicle.Owner" Required="true" Placeholder="Ex: Aaron Sharon Dsouza" />
+					<MudTextField Label="Owner Address" @bind-Value="vehicle.OwnerAddress" Required="true" Placeholder="Ex: Ajanta, Mangalore" />
+					<MudTextField Label="Owner Contact Number" @bind-Value="vehicle.OwnerContactNumber" Required="true" Placeholder="Ex: 900090009" />
+					<MudTextField Label="Owner Email" @bind-Value="vehicle.OwnerEmail" Required="true" Placeholder="eg@eg.dk" Type="Email" />
+					<MudTextField Label="Vehicle Name" @bind-Value="vehicle.VehicleName" Required="true" Placeholder="Ex: Bullet" />
+					<MudTextField Label="Price" @bind-Value="vehicle.Price" Required="true" Placeholder="60000" Type="Number" />
+				</MudCardContent>
+				<MudCardActions>
+					<MudButton OnClick="SubmitVehicle" Color="Color.Primary" Disabled="@isSubmitting">Save Vehicle</MudButton>
+					<MudButton OnClick="Cancel" Color="Color.Secondary">Cancel</MudButton>
+				</MudCardActions>
+			</MudCard>
+		</MudItem>
+	</MudGrid>
 </MudContainer>
+
+
+
+
+ @*    @code { *@
+	@* public string HelperText { get; set; } *@
+ @*    } *@

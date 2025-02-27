@@ -39,7 +39,7 @@ body {
 }
 
 .Add-vehicle-Container-box {
-  width: 1005 !important;
+  width: 100% !important;
 }
 .Add-vehicle-Container-box .mud-card {
   width: 500px !important;
