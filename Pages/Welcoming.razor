@@ -31,6 +31,9 @@
             <MudTd DataLabel="Vehicle Name">@vehicle["vehicleName"]</MudTd>
             <MudTd DataLabel="Price">@vehicle["price"]</MudTd>
             <MudTd DataLabel="Actions">
+                <MudButton Color="Color.Primary" OnClick="() => EditVehicle(vehicle)">
+                    <MudIcon Icon="@Icons.Material.Filled.Edit" /> Edit
+                </MudButton>
                 <MudButton Color="Color.Error" OnClick="() => DeleteVehicle(vehicle)">
                     <MudIcon Icon="@Icons.Material.Filled.Delete" /> Delete
                 </MudButton>
@@ -50,6 +53,17 @@
         };
 
         DialogService.Show<AddVehicleDialog>("Add/Edit Vehicle", parameters);
+    }
+    private void EditVehicle(Dictionary<string, object> vehicle)
+    {
+        var parameters = new DialogParameters
+    {
+        { "Vehicle", vehicle }, // Pass the selected vehicle details to the dialog
+        { "IsEditMode", true }, // Indicate that this is an edit operation
+        { "OnVehicleUpdated", EventCallback.Factory.Create(this, RefreshTable) }
+    };
+
+        var dialogReference = DialogService.Show<AddVehicleDialog>("Edit Vehicle", parameters);
     }
 
     private async Task<TableData<Dictionary<string, object>>> LoadVehicles(TableState state, CancellationToken cancellationToken)
