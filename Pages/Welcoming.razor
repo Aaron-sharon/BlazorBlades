@@ -52,7 +52,7 @@
             { "OnVehicleAdded", EventCallback.Factory.Create(this, RefreshTable) }
         };
 
-        DialogService.Show<AddVehicleDialog>("Add/Edit Vehicle", parameters);
+        DialogService.Show<AddVehicleDialog>("Add Vehicle", parameters);
     }
     private void EditVehicle(Dictionary<string, object> vehicle)
     {

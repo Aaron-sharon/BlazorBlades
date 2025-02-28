@@ -70,7 +70,8 @@ body {
 
     .btn-Add-vehicle-container-box-submit-button {
         @include button-styles;
-        margin: 0;
+        margin: 0 0 1rem 0;
+        width: 100%;
     }
 
     .btn-Add-vehicle-container-box-close-button {

@@ -74,7 +74,7 @@
                     await OnVehicleAdded.InvokeAsync();
                 }
 
-                _dialogReference?.Close(DialogResult.Ok(vehicle)); // ✅ Close with result
+                _dialogReference?.Close(DialogResult.Ok(vehicle));
             }
             else
             {
@@ -89,15 +89,10 @@
 
         isSubmitting = false;
     }
-
-    private void Cancel()
-    {
-        _dialogReference?.Close(DialogResult.Cancel()); // ✅ Close dialog on cancel
-    }
 }
 
 
-<MudContainer Class="Add-vehicle-Container-box">
+<MudContainer Class="Add-vehicle-Container-box pb-4">
     <MudGrid>
         <MudItem>
             <MudCard>
@@ -115,10 +110,9 @@
                     <MudTextField @bind-Value="vehicle.Price" Label="Vehicle Price" Variant="Variant.Outlined" Placeholder="69,000" Required="true" />
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton OnClick="SubmitVehicle" Class="btn-Add-vehicle-container-box-submit-button" Disabled="@isSubmitting">
+                    <MudButton OnClick="SubmitVehicle" Class="btn-Add-vehicle-container-box-submit-button" Disabled="@isSubmitting" FullWidth="true">
                         @((IsEditMode) ? "Update Vehicle" : "Save Vehicle")
                     </MudButton>
-                    <MudButton OnClick="Cancel" Class="btn-Add-vehicle-container-box-close-button">Cancel</MudButton>
                 </MudCardActions>
             </MudCard>
         </MudItem>
